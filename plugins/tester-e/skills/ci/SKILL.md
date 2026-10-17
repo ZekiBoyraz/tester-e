@@ -12,7 +12,10 @@ Write `.github/workflows/tester-e-regression.yml` for this repository.
    Work out which automation types the plan contains (WEB, API) from the test
    files. Each type is triggered as its own run.
 2. Write the workflow below with the plan id, environment name and the matrix
-   filled in. Ask before overwriting an existing file.
+   filled in. Replace `main` under `push: branches:` with this repository's default
+   branch (`git symbolic-ref --short refs/remotes/origin/HEAD`, else the current
+   branch — a push to any other name would never trigger it). Ask before
+   overwriting an existing file.
 3. Tell the user the one-time setup: create an API key in tester-e → Settings →
    Integrations → CI/CD API Keys (the run is attributed to the key's creator and
    billed like their runs), add it as the repository secret `TESTER_E_API_KEY`,
