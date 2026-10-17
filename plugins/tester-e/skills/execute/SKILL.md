@@ -18,10 +18,14 @@ Run tests on tester-e. Follow the `tester-e-tests` skill's rules.
 2. **Plan or suite:** get its id (`ensure_catalog` with the config's suites/plans
    returns ids, or `list_test_plans` / `list_test_suites`), then call
    `run_regression` with `project_id`, `test_plan_id` or `test_suite_id`,
-   `environment` and `wait_seconds: 480`.
+   `environment` and `wait_seconds: 480` — plus `mobile` (from `config.mobile`) when
+   the target has MOBILE tests. Without it mobile tests cannot run; say so and point to
+   the `mobile:` block in the `tester-e-tests` skill instead of guessing device values.
    **Test cases:** find them with `find_test_cases` (`metadata_key: external_key`,
    `metadata_value: "<repo>::<key>"`). Group them by `automation_type`; for each group
-   call `create_test_execution` with `test_case_ids`, then `start_test_execution`
+   call `create_test_execution` with `test_case_ids` (MOBILE cases: run their suite
+   through `run_regression` instead — a single-case run cannot carry the device),
+   then `start_test_execution`
    with the environment's id (`list_environments`) and `max_healing_attempts: 0`,
    then poll `get_execution_results` (`failed_only`) every ~10 s until it settles.
 3. Self-healing stays **off**: a broken selector should fail, not be repaired. If

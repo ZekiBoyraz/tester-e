@@ -1,6 +1,6 @@
 ---
 name: tester-e-tests
-description: How to write WEB, API and PERFORMANCE tests for tester-e and keep them in this repository under .tester-e/. Use when the user asks to write, update, organise, sync or run tester-e tests, end-to-end tests, regression tests or API tests on tester-e.
+description: How to write WEB, API, PERFORMANCE and MOBILE tests for tester-e and keep them in this repository under .tester-e/. Use when the user asks to write, update, organise, sync or run tester-e tests, end-to-end tests, regression tests or API tests on tester-e.
 ---
 
 # Writing tests for tester-e
@@ -14,7 +14,7 @@ Translate the scenario into steps.
 ## Ground rules
 
 1. **Read the schema before writing.** Call the MCP tool `describe_step_schema`
-   with `automation_type: WEB`, `API` or `PERFORMANCE`. Use only the actions, assertion types
+   with `automation_type: WEB`, `API`, `PERFORMANCE` or `MOBILE`. Use only the actions, assertion types
    and operators it lists. Its lists are what the runner accepts today.
 2. **Validate before saving.** `validate_test_cases` is free and writes nothing.
    `upsert_test_cases` refuses anything it rejects. A step the runner does not
@@ -144,6 +144,40 @@ Performance rules:
   does not own without asking; keep stages short (the total must stay under 28 min).
 - A performance run costs **10 credits per URL** (Lighthouse) or **10 per load test**
   — say so before running a suite with many of them.
+
+A MOBILE test (`.tester-e/tests/mobile/login.yaml`):
+
+```yaml
+name: A user can sign in on Android
+automation_type: MOBILE
+mobile_steps:
+  - { order: 1, action: launch_app, description: "Open the app" }
+  - { order: 2, action: tap, target: login_button, target_strategy: accessibility_id, description: "Open sign in" }
+  - { order: 3, action: type_text, target: email, target_strategy: resource_id, value: "{{TEST_USER}}", description: "Type the email" }
+  - { order: 4, action: tap, target: Sign in, target_strategy: text, description: "Sign in" }
+  - { order: 5, action: assert_visible, target: Welcome, target_strategy: text, description: "Home screen shows" }
+```
+
+Mobile rules:
+- Prefer `accessibility_id` (Android content-desc / iOS accessibilityIdentifier), then
+  `resource_id`, then `text` — those three work on every device. Read them from the
+  app's source; xpath and the other strategies work on a device farm only.
+- Coordinates and reference images are recorded, not written — never use
+  `target_strategy: coordinates`.
+- **Running needs a device.** The device and the app come from the run, not the test:
+  a device farm set up in tester-e → Settings → Integrations → Mobile Devices, and
+  either the app uploaded in tester-e (its `appPath`) or the package / bundle id of an
+  app already on the device. Keep them under `mobile:` in config.yaml:
+
+```yaml
+mobile:
+  platform: android
+  deviceSource: device_farm
+  deviceFarmProvider: browserstack
+  deviceName: Google Pixel 8
+  osVersion: "14.0"
+  appPackage: com.example.shop      # or appPath of an uploaded build, or bundleId on iOS
+```
 
 ## Keys
 

@@ -1,6 +1,6 @@
 # tester-e plugin for Claude Code
 
-Claude writes WEB, API and performance tests for your app, keeps them in your repository
+Claude writes WEB, API, performance and mobile tests for your app, keeps them in your repository
 under `.tester-e/`, registers them in a tester-e project as test cases → suites →
 plans, and runs them as a regression.
 

@@ -10,7 +10,9 @@ Write `.github/workflows/tester-e-regression.yml` for this repository.
 1. Read `.tester-e/config.yaml`. Plan: `$0` or the first plan. Find its id with
    `list_test_plans` (use the uuid, not TP-…). Environment: `config.environment`.
    Work out which automation types the plan contains (WEB, API, PERFORMANCE) from the test
-   files. Each type is triggered as its own run.
+   files. Each type is triggered as its own run. MOBILE stays out of the matrix: the
+   webhook cannot carry a device, so a mobile run in CI needs a tester-e pipeline with its
+   device settings, triggered with `pipeline_id` — say so if the plan has mobile tests.
 2. Write the workflow below with the plan id, environment name and the matrix
    filled in. Replace `main` under `push: branches:` with this repository's default
    branch (`git symbolic-ref --short refs/remotes/origin/HEAD`, else the current
