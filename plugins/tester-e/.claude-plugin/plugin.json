@@ -1,7 +1,7 @@
 {
   "name": "tester-e",
   "displayName": "tester-e",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Write WEB and API tests for your app with Claude, keep them in your repo, catalogue them in tester-e as suites and plans, and run them as a regression.",
   "author": { "name": "tester-e", "url": "https://tester-e.com" },
   "homepage": "https://app.tester-e.com/docs",

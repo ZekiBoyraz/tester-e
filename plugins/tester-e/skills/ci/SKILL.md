@@ -18,7 +18,7 @@ Write `.github/workflows/tester-e-regression.yml` for this repository.
    billed like their runs), add it as the repository secret `TESTER_E_API_KEY`,
    and note that CI/CD needs a PRO or ENTERPRISE plan.
 4. Say that a CI run uses the platform's self-healing defaults. The webhook takes no
-   healing switch, unlike `/tester-e:regress`, which runs with healing off.
+   healing switch, unlike `/tester-e:execute`, which runs with healing off.
 5. Be honest about what a PR run proves. The tests drive the environment's
    `BASE_URL`, so unless that is a per-PR preview deployment, a green run says the
    deployed app works, not that this PR does.

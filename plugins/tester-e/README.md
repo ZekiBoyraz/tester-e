@@ -28,7 +28,7 @@ claude mcp add --transport http tester-e https://app.tester-e.com/mcp \
 | `/tester-e:init` | Pick the project, write `.tester-e/config.yaml`, create the environment | none |
 | *"write tests for the checkout flow"* | Claude writes `.tester-e/tests/**.yaml` | none |
 | `/tester-e:sync [--prune]` | Validate, then create/update cases, suites and plans | creating a case costs its steps; unchanged cases cost nothing |
-| `/tester-e:regress [plan] [env]` | Run with self-healing **off**, report failures | executed steps |
+| `/tester-e:execute [plan \| suite \| test key …] [env=…]` | Run a plan, a suite or single tests with self-healing **off**, report failures | executed steps |
 | `/tester-e:ci [plan]` | Write a GitHub Actions workflow | (CI runs: executed steps) |
 
 Tests that disappear from the repo are tagged `tester-e:stale` and set to Draft

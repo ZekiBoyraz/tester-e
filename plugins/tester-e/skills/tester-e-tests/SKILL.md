@@ -7,7 +7,7 @@ description: How to write WEB and API tests for tester-e and keep them in this r
 
 tester-e runs tests from **structured steps**, not from test code. You write the
 steps as YAML files in this repository; `/tester-e:sync` registers them in a
-tester-e project, and `/tester-e:regress` runs them. tester-e never executes
+tester-e project, and `/tester-e:execute` runs them. tester-e never executes
 code you write, so a Playwright or pytest file is not something it can run.
 Translate the scenario into steps.
 
@@ -52,7 +52,7 @@ Translate the scenario into steps.
 ```yaml
 project_id: 3f1c…            # tester-e project (list_projects)
 repo: acme/shop-frontend     # stable name; tests, suites and plans are keyed by it
-environment: staging         # default for /tester-e:regress
+environment: staging         # default for /tester-e:execute
 environments:
   staging:
     scope: all               # all | web | api
