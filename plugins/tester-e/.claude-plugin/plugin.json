@@ -1,7 +1,7 @@
 {
   "name": "tester-e",
   "displayName": "tester-e",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Write WEB, API, performance and mobile tests for your app with Claude, keep them in your repo, catalogue them in tester-e as suites and plans, and run them.",
   "author": {
     "name": "tester-e",

@@ -1,5 +1,6 @@
 ---
 name: tester-e-tests
+user-invocable: false
 description: How to write WEB, API, PERFORMANCE and MOBILE tests for tester-e and keep them in this repository under .tester-e/. Use when the user asks to write, update, organise, sync or run tester-e tests, end-to-end tests, regression tests or API tests on tester-e.
 ---
 

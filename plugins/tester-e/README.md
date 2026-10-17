@@ -26,10 +26,11 @@ claude mcp add --transport http tester-e https://app.tester-e.com/mcp \
 | Command | What it does | Credits |
 |---|---|---|
 | `/tester-e:init` | Pick the project, write `.tester-e/config.yaml`, create the environment | none |
-| *"write tests for the checkout flow"* | Claude writes `.tester-e/tests/**.yaml` | none |
+| `/tester-e:pull [plan or suite]` | Bring tests that already exist in tester-e into the repo as files | none |
+| *"write tests for the checkout flow"* | Claude writes `.tester-e/tests/**.yaml` (WEB, API, performance, mobile) | none |
 | `/tester-e:sync [--prune]` | Validate, then create/update cases, suites and plans | creating a case costs its steps; unchanged cases cost nothing |
-| `/tester-e:execute [plan \| suite \| test key …] [env=…]` | Run a plan, a suite or single tests with self-healing **off**, report failures | executed steps |
-| `/tester-e:ci [plan]` | Write a GitHub Actions workflow | (CI runs: executed steps) |
+| `/tester-e:execute [plan \| suite \| test key …] [env=…]` | Run with self-healing **off**, report failures | executed steps |
+| `/tester-e:ci [github \| gitlab \| azure]` | Write a GitHub Actions, GitLab CI or Azure Pipelines job | (CI runs: executed steps) |
 
 Tests that disappear from the repo are tagged `tester-e:stale` and set to Draft
 (`--prune`). They are never deleted; run history and linked bugs stay.

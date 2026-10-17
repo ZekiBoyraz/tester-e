@@ -22,4 +22,8 @@ Set this repository up for tester-e. Follow the `tester-e-tests` skill's rules.
    `missing_secrets`).
 5. Write `.tester-e/config.yaml` (format in `tester-e-tests`) and an empty
    `.tester-e/tests/`. Show the file. Nothing in it may be secret.
-6. Suggest a first set of tests from the app's main flows and ask before writing them.
+6. Close with what to do next, in two lines:
+   - tests already in tester-e → `/tester-e:pull` brings them into the repo;
+   - new tests → just ask, e.g. "write tests for the sign-in and checkout flows", then
+     `/tester-e:sync` and `/tester-e:execute`.
+   Offer a first set of tests from the app's main flows; write them only when asked.
