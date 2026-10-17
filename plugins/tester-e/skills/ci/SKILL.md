@@ -9,7 +9,7 @@ Write `.github/workflows/tester-e-regression.yml` for this repository.
 
 1. Read `.tester-e/config.yaml`. Plan: `$0` or the first plan. Find its id with
    `list_test_plans` (use the uuid, not TP-…). Environment: `config.environment`.
-   Work out which automation types the plan contains (WEB, API) from the test
+   Work out which automation types the plan contains (WEB, API, PERFORMANCE) from the test
    files. Each type is triggered as its own run.
 2. Write the workflow below with the plan id, environment name and the matrix
    filled in. Replace `main` under `push: branches:` with this repository's default
@@ -40,7 +40,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        type: [WEB, API]          # only the types the plan contains
+        type: [WEB, API]          # only the types the plan contains (WEB, API, PERFORMANCE)
     env:
       TESTER_E_URL: https://app.tester-e.com
       PLAN_ID: <plan uuid>

@@ -1,6 +1,6 @@
 ---
 name: tester-e-tests
-description: How to write WEB and API tests for tester-e and keep them in this repository under .tester-e/. Use when the user asks to write, update, organise, sync or run tester-e tests, end-to-end tests, regression tests or API tests on tester-e.
+description: How to write WEB, API and PERFORMANCE tests for tester-e and keep them in this repository under .tester-e/. Use when the user asks to write, update, organise, sync or run tester-e tests, end-to-end tests, regression tests or API tests on tester-e.
 ---
 
 # Writing tests for tester-e
@@ -14,7 +14,7 @@ Translate the scenario into steps.
 ## Ground rules
 
 1. **Read the schema before writing.** Call the MCP tool `describe_step_schema`
-   with `automation_type: WEB` or `API`. Use only the actions, assertion types
+   with `automation_type: WEB`, `API` or `PERFORMANCE`. Use only the actions, assertion types
    and operators it lists. Its lists are what the runner accepts today.
 2. **Validate before saving.** `validate_test_cases` is free and writes nothing.
    `upsert_test_cases` refuses anything it rejects. A step the runner does not
@@ -101,6 +101,49 @@ api_steps:
 
 `description` on a WEB step matters: it is what self-healing uses to find an
 element that moved. Write what the step does, in words.
+
+A PERFORMANCE test has no steps — its `performance_config` is the test. Two kinds:
+**Lighthouse** page performance (`test_type: page_performance`) and a **k6 load test**
+(`test_type: smoke | load | stress | spike | soak | breakpoint` + `traffic_test`).
+
+```yaml
+# .tester-e/tests/perf/home-page.yaml
+name: Home page stays fast
+automation_type: PERFORMANCE
+performance_config:
+  test_type: page_performance
+  page_performance:
+    urls: [{ url: "{{BASE_URL}}/", name: Home }]   # objects, not strings
+    run_count: 1
+    network_throttling: fast_3g
+    thresholds:
+      - { metric: lcp, max_value: 2500 }               # ms, lower is better
+      - { metric: performance_score, max_value: 80 }   # 0–100, a MINIMUM
+```
+
+```yaml
+# .tester-e/tests/perf/products-api-load.yaml
+name: Products API holds 20 users for 2 minutes
+automation_type: PERFORMANCE
+performance_config:
+  test_type: load
+  traffic_test:
+    target_url: "{{BASE_URL}}/api/products"
+    method: GET
+    stages: [{ duration: 30s, target: 20 }, { duration: 2m, target: 20 }, { duration: 30s, target: 0 }]
+    thresholds:
+      - { metric: http_req_duration, condition: "p(95)<500" }
+      - { metric: http_req_failed, condition: "rate<0.01" }
+```
+
+Performance rules:
+- **Always give thresholds.** Without them a Lighthouse run never fails and a load
+  test passes whatever the server answers.
+- FID and INP cannot be measured in a lab run — use `tbt`/`lcp` instead.
+- Targets must be public URLs. **Never load-test production** or anything the user
+  does not own without asking; keep stages short (the total must stay under 28 min).
+- A performance run costs **10 credits per URL** (Lighthouse) or **10 per load test**
+  — say so before running a suite with many of them.
 
 ## Keys
 

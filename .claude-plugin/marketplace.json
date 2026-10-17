@@ -6,7 +6,7 @@
     {
       "name": "tester-e",
       "source": "./plugins/tester-e",
-      "description": "Write WEB and API tests for your app with Claude, catalogue them in tester-e as suites and plans, and run them as a regression."
+      "description": "Write WEB, API and performance tests for your app with Claude, catalogue them in tester-e as suites and plans, and run them."
     }
   ]
 }
