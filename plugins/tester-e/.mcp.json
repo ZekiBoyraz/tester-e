@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tester-e": {
+      "type": "http",
+      "url": "https://app.tester-e.com/mcp",
+      "oauth": { "clientId": "tester-e-mcp", "callbackPort": 33418 }
+    }
+  }
+}
