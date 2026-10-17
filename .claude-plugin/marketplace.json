@@ -1,0 +1,12 @@
+{
+  "name": "tester-e",
+  "owner": { "name": "tester-e", "url": "https://tester-e.com" },
+  "description": "tester-e plugins for Claude Code.",
+  "plugins": [
+    {
+      "name": "tester-e",
+      "source": "./plugins/tester-e",
+      "description": "Write WEB and API tests for your app with Claude, catalogue them in tester-e as suites and plans, and run them as a regression."
+    }
+  ]
+}
